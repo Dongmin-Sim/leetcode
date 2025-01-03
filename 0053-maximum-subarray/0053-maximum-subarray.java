@@ -6,9 +6,9 @@ class Solution {
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] > currentSum + nums[i]) {
                 currentSum = nums[i];
-                continue;
+            } else {
+                currentSum = Math.max(nums[i], currentSum + nums[i]);
             }
-            currentSum = Math.max(nums[i], currentSum + nums[i]);
             maxSum = Math.max(maxSum, currentSum);
         }
 
