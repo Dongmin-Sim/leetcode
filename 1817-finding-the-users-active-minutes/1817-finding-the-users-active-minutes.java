@@ -9,10 +9,8 @@ class Solution {
 
             if (!uam.containsKey(userId)) {
                 uam.put(userId, new HashSet<>());
-                uam.get(userId).add(minute);
-            } else {
-                uam.get(userId).add(minute);
             }
+            uam.get(userId).add(minute);
         }
 
         for (Integer userId : uam.keySet()) {
