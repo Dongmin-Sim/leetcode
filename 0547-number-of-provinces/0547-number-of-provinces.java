@@ -5,7 +5,7 @@ class Solution {
         int count = 0;
 
         for (int i = 0; i < n; i++) {
-            if (dfs(i, isConnected[i], -1, visited)) {
+            if (dfs(i, visited, isConnected)) {
                 count++;
             }
         }
@@ -13,15 +13,14 @@ class Solution {
         return count;
     }
 
-    private boolean dfs(int current, int[] connected, int from, boolean[] visited) {
+    private boolean dfs(int current, boolean[] visited, int[][]isConnected) {
         if (visited[current]) return false;
 
-        for (int i = 0; i < connected.length; i++) {
+        visited[current] = true;
+        for (int i = 0; i < isConnected[current].length; i++) {
             if (i == current) continue;
-
-            if (connected[i] == 1 && !visited[i]) {
-                visited[i] = true;
-                dfs(i, connected, current, visited);
+            if (isConnected[current][i] == 1 && !visited[i]) {
+                dfs(i, visited, isConnected);
             }
         }
         return true;
