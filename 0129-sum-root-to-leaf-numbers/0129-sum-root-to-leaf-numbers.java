@@ -15,19 +15,20 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        return find(root, 0);
+        return calculatePathSum(root, 0, 0);
     }
 
-    private int find(TreeNode node, int val) {
-        if (node == null) {
-            return 0;
-        }
+    private int calculatePathSum(TreeNode node, int prev, int sum) {
+        if (node == null) return 0;
 
-        int cur = val * 10 + node.val;
+        int cur = prev * 10 + node.val;
         if (node.left == null && node.right == null) {
-            return cur;
+            sum += cur;
+            return sum;
         }
 
-        return find(node.left, cur) + find(node.right, cur);
+        int left = calculatePathSum(node.left, cur, sum);
+        int right = calculatePathSum(node.right, cur, sum);
+        return left + right;
     }
 }
