@@ -15,20 +15,17 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        return calculatePathSum(root, 0, 0);
+        return dfs(root, root.val);
     }
 
-    private int calculatePathSum(TreeNode node, int prev, int sum) {
-        if (node == null) return 0;
+    private int dfs(TreeNode node, int preVal) {
+        if (node == null) { return preVal; }
 
-        int cur = prev * 10 + node.val;
+        int curVal = preVal * 10 + node.val;
         if (node.left == null && node.right == null) {
-            sum += cur;
-            return sum;
+            return curVal;
         }
 
-        int left = calculatePathSum(node.left, cur, sum);
-        int right = calculatePathSum(node.right, cur, sum);
-        return left + right;
+        return dfs(node.left, curVal) + dfs(node.right, curVal);
     }
 }
