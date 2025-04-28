@@ -18,22 +18,23 @@ class Solution {
         HashMap<String, Integer> map = new HashMap<>();
         List<TreeNode> result = new ArrayList<>();
 
-        findDuplicateSubtree(root, map, result);
+        findDuplicate(root, map, result);
         return result;
     }
 
-    private String findDuplicateSubtree(TreeNode node, HashMap<String, Integer> map, List<TreeNode> result) {
+    private String findDuplicate(TreeNode node, HashMap<String, Integer> map, List<TreeNode> result) {
         if (node == null) return "";
 
-        String left = findDuplicateSubtree(node.left, map, result);
-        String right = findDuplicateSubtree(node.right, map, result);
-        String serialized = String.join("|", String.valueOf(node.val), left, right);
+        String left = findDuplicate(node.left, map, result);
+        String right = findDuplicate(node.right, map, result);
+        String key = String.join("|", String.valueOf(node.val), left, right);
 
-        map.put(serialized, map.getOrDefault(serialized, 0) + 1);
-        if (map.getOrDefault(serialized, 0) == 2) {
+        map.put(key, map.getOrDefault(key, 0) + 1);
+
+        if (map.getOrDefault(key, 0) == 2) {
             result.add(node);
         }
 
-        return serialized;
+        return key;
     }
 }
