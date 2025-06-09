@@ -6,7 +6,7 @@ class Solution {
         for (int num : nums) {
             int target = k - num;
 
-            if (map.containsKey(target) && map.get(target) > 0) {
+            if (map.getOrDefault(target, 0) > 0) {
                 count++;
                 map.put(target, map.get(target) - 1);
             } else {
