@@ -1,34 +1,27 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
+import java.util.*;
 
 class Solution {
     public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
-        List<List<Integer>> answer = new ArrayList<>();
-        HashMap<Integer, Set<Integer>> map = new HashMap<>();
+        List<List<Integer>> res = new ArrayList<>();
 
-        
-        for (int num : nums1) {
-            map.computeIfAbsent(num, k -> new HashSet<>()).add(1);
-        }
+        res.add(getDistinctNums(nums1, nums2));
+        res.add(getDistinctNums(nums2, nums1));
 
+        return res;
+    }
+
+    private List<Integer> getDistinctNums(int[] nums1, int[] nums2) {
+        HashSet<Integer> tmp = new HashSet<>();
+        HashSet<Integer> set = new HashSet<>();
         for (int num : nums2) {
-            map.computeIfAbsent(num, k -> new HashSet<>()).add(2);
+            set.add(num);
         }
 
-        List<Integer> nums1List = new ArrayList<>();
-        List<Integer> nums2List = new ArrayList<>();
-        for (Entry<Integer, Set<Integer>> entry : map.entrySet()) {
-            Set<Integer> value = entry.getValue();
-            if (value.size() == 2) continue;
-
-            if (value.contains(1)) nums1List.add(entry.getKey());
-            if (value.contains(2)) nums2List.add(entry.getKey());
+        for (int num : nums1) {
+            if (!set.contains(num)) {
+                tmp.add(num);
+            }
         }
-
-        answer.add(nums1List);
-        answer.add(nums2List);
-        return answer;
+        return new ArrayList<>(tmp);
     }
 }
