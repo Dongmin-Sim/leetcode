@@ -4,7 +4,7 @@ class SmallestInfiniteSet {
     Set<Integer> set;
 
     public SmallestInfiniteSet() {
-        Set<Integer> init = IntStream.range(1, 1000)
+        Set<Integer> init = IntStream.range(1, 1001)
             .boxed()
             .collect(Collectors.toSet());
         minHeap = new PriorityQueue<>(init);
